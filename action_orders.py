@@ -7,6 +7,8 @@ def get_user_order_history(user_id, page=1, page_size=10, status=None, start_dat
     """
     This function retrieves the order history for a user, with support for pagination and filtering.
     """
+    from datetime import datetime
+
     # Simulate database query (In a real-world scenario, this would query a DB)
     orders_db = [
         {"order_id": 1, "user_id": user_id, "status": "shipped", "order_date": "2024-12-15", "total": 100},
@@ -39,36 +41,33 @@ def get_user_order_history(user_id, page=1, page_size=10, status=None, start_dat
         "page": page,
         "page_size": page_size
     }
-
 # Function 2: Process Payment with Retry Logic and Multiple Payment Methods
 def process_payment(order_id, payment_info):
     """
     This function processes a payment for an order, handling different payment methods, retries, and failure details.
     """
-    # Simulate payment gateway interaction (In a real-world scenario, this would integrate with a payment API)
     payment_gateway_url = "https://payment-gateway.com/api/process"
     
     retries = 3
     for attempt in range(retries):
         try:
             # Assuming payment_info contains 'method', 'amount', and 'details'
+            payment_status = None
             if payment_info['method'] == 'credit_card':
-                payment_status = requests.post(payment_gateway_url, json=payment_info)  # Simulating POST request
+                payment_status = requests.post(payment_gateway_url, json=payment_info)
             elif payment_info['method'] == 'paypal':
-                payment_status = requests.post(payment_gateway_url, json=payment_info)  # Simulating POST request
+                payment_status = requests.post(payment_gateway_url, json=payment_info)
             else:
-                raise ValueError("Unsupported payment method")
+                return {"order_id": order_id, "status": "failed", "message": "Unsupported payment method"}
             
-            # Simulate the success or failure of the payment process
             if payment_status.status_code == 200:
-                # If payment is successful, update order status in the database
                 return {"order_id": order_id, "status": "paid", "message": "Payment successful."}
             else:
-                raise Exception("Payment failed. Status Code: " + str(payment_status.status_code))
+                return {"order_id": order_id, "status": "failed", "message": f"Payment failed. Status Code: {payment_status.status_code}"}
         
         except requests.RequestException as e:
             if attempt < retries - 1:
-                continue  # Retry if we haven't reached max attempts
+                continue
             else:
                 return {"order_id": order_id, "status": "failed", "message": f"Payment failed after {retries} attempts: {str(e)}"}
         except Exception as e:
