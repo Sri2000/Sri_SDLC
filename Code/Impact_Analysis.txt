@@ -6,7 +6,7 @@ We need to extend the get_user_order_history function to:
 Support pagination (fetch only a subset of orders per request).
 Add filtering capabilities, including filtering by order status and date range.
 Impact:
-s
+
 
 Pagination: The function now handles pagination, ensuring that large datasets (e.g., users with many orders) can be retrieved in chunks, improving performance and user experience.
 Filtering: Users can now filter their order history based on status (e.g., "shipped", "processing") and a date range. This will make the system more flexible, allowing users to query for specific orders.
