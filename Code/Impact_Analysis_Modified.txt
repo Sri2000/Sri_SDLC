@@ -1,0 +1,13 @@
+1. **Impact for `get_user_order_history` function**:
+   - Add **pagination** support, so the user can fetch orders in smaller chunks (pagination parameters should be `page` and `page_size`).
+   - Implement **filtering capabilities**, including filtering by `status` (order status like "shipped", "processing"), and `date range` (between `start_date` and `end_date`).
+   - Handle cases where the user has **no orders** or the filters return **no results** (e.g., return a friendly message indicating no orders were found).
+
+2. **Impact for `process_payment` function**:
+   - Extend the function to support **multiple payment methods** (e.g., `credit_card`, `paypal`).
+   - Add **retry logic** for failed payments (up to 3 retries).
+   - Provide **detailed error messages** and feedback if a payment fails (e.g., provide specific error codes from the payment gateway).
+   - Implement support for **different payment methods** in the function, such as checking the `payment_info['method']` for either `credit_card` or `paypal`.
+
+
+#########################################################################
