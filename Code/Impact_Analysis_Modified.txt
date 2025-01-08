@@ -8,6 +8,3 @@
    - Add **retry logic** for failed payments (up to 3 retries).
    - Provide **detailed error messages** and feedback if a payment fails (e.g., provide specific error codes from the payment gateway).
    - Implement support for **different payment methods** in the function, such as checking the `payment_info['method']` for either `credit_card` or `paypal`.
-
-
-###################
