@@ -10,4 +10,4 @@
    - Implement support for **different payment methods** in the function, such as checking the `payment_info['method']` for either `credit_card` or `paypal`.
 
 
-#########################################################################
+###################
